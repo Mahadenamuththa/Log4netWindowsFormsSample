@@ -44,26 +44,26 @@ All versions can be found [here](https://logging.apache.org/log4net/download_log
 
 ```xml
 <configSections>
-		<section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net"/>
+    <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net"/>
 </configSections>
 <appSettings>
-		<add key="log4net.Internal.Debug" value="true"/>
+    <add key="log4net.Internal.Debug" value="true"/>
 </appSettings>
 <log4net debug="true">
-		<appender name="RollingLogFileAppender" type="log4net.Appender.RollingFileAppender">
-			<file value="Files/Errors/MessageQueue_Errors.txt"/>
-			<appendToFile value="true"/>
-			<rollingStyle value="Size"/>
-			<maxSizeRollBackups value="10"/>
-			<maximumFileSize value="10MB"/>
-			<staticLogFileName value="true"/>
-			<layout type="log4net.Layout.PatternLayout">
-				<conversionPattern value="%-5p %d %5rms %-22.22c{1} %m%n"/>
-			</layout>
-		</appender>
-		<root>
-			<level value="DEBUG"/>
-			<appender-ref ref="RollingLogFileAppender"/>
-		</root>
+    <appender name="RollingLogFileAppender" type="log4net.Appender.RollingFileAppender">
+        <file value="Files/Errors/MessageQueue_Errors.txt"/>
+        <appendToFile value="true"/>
+        <rollingStyle value="Size"/>
+        <maxSizeRollBackups value="10"/>
+        <maximumFileSize value="10MB"/>
+        <staticLogFileName value="true"/>
+        <layout type="log4net.Layout.PatternLayout">
+            <conversionPattern value="%-5p %d %5rms %-22.22c{1} %m%n"/>
+        </layout>
+    </appender>
+    <root>
+        <level value="DEBUG"/>
+        <appender-ref ref="RollingLogFileAppender"/>
+    </root>
 </log4net>
 ```

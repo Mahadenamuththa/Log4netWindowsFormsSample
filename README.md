@@ -51,7 +51,7 @@ All versions can be found [here](https://logging.apache.org/log4net/download_log
 </appSettings>
 <log4net debug="true">
     <appender name="RollingLogFileAppender" type="log4net.Appender.RollingFileAppender">
-        <file value="Files/Errors/MessageQueue_Errors.txt"/>
+        <file value="Files/Errors/Errors.txt"/>
         <appendToFile value="true"/>
         <rollingStyle value="Size"/>
         <maxSizeRollBackups value="10"/>
@@ -66,4 +66,60 @@ All versions can be found [here](https://logging.apache.org/log4net/download_log
         <appender-ref ref="RollingLogFileAppender"/>
     </root>
 </log4net>
+```
+07.  Create ErrorLogger.cs Class
+
+![image](https://user-images.githubusercontent.com/21302583/154560534-fee2ecbc-2d8d-4bd2-b61f-7b5283078dc4.png)
+
+and change inside as 
+```csharp
+   public static class ErrorLogger
+    {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(ErrorLogger));
+        #region Constructor
+        static ErrorLogger()
+        {
+            XmlConfigurator.Configure();
+        }
+        #endregion
+
+        #region Public Methods
+        public static bool AddError(Exception ex)
+        {
+            if (ex != null)
+            {
+                StackTrace exTrace = new StackTrace(ex, true);
+                // Class name
+                string className = string.Format("Class name: {0}", exTrace.GetFrame(exTrace.FrameCount - 1).GetMethod().ReflectedType.Name);
+                // Method name
+                string methodName = string.Empty;
+                if (exTrace.GetFrame(exTrace.FrameCount - 1).GetMethod().MemberType == MemberTypes.Method)
+                {
+                    methodName = string.Format("Method name: {0}", exTrace.GetFrame(exTrace.FrameCount - 1).GetMethod().Name);
+                }
+                else
+                {
+                    methodName = string.Format("Method name: {0}", exTrace.GetFrame(exTrace.FrameCount - 1).GetMethod().MemberType.ToString());
+                }
+                // Line number
+                string lineNumber = string.Format("Line number: {0}", exTrace.GetFrame(exTrace.FrameCount - 1).GetFileLineNumber());
+                // Exception message
+                string exception = string.Format("Exception message: {0}", ex.Message + Environment.NewLine + ex.StackTrace);
+                // Inner exception message
+                string innerException = ex.InnerException != null ? Environment.NewLine + string.Format("Inner exception: {0}", ex.InnerException) : string.Empty;
+
+
+                string errorDetails = Environment.NewLine + className
+                                    + Environment.NewLine + methodName
+                                    + Environment.NewLine + lineNumber
+                                    + Environment.NewLine + exception
+                                    + innerException
+                                    + Environment.NewLine;
+
+                logger.Error(errorDetails);
+            }
+            return true;
+        }
+        #endregion
+    }
 ```

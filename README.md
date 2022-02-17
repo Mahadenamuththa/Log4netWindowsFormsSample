@@ -73,7 +73,7 @@ All versions can be found [here](https://logging.apache.org/log4net/download_log
 
 and change inside as 
 ```csharp
-   public static class ErrorLogger
+       public static class ErrorLogger
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ErrorLogger));
         #region Constructor
@@ -84,6 +84,11 @@ and change inside as
         #endregion
 
         #region Public Methods
+        /// <summary>
+        /// Add Error
+        /// </summary>
+        /// <param name="ex">Exception</param>
+        /// <returns>boolean</returns>
         public static bool AddError(Exception ex)
         {
             if (ex != null)

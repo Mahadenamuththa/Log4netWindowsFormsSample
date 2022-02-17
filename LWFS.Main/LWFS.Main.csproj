@@ -76,7 +76,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="bin\Debug\LWFS.Main.exe.config" />
+    <None Include="obj\Debug\build.force" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Debug\LWFS.Main.csproj.AssemblyReference.cache" />
     <None Include="obj\Debug\LWFS.Main.csproj.CopyComplete" />
     <None Include="obj\Debug\LWFS.Main.csproj.CoreCompileInputs.cache" />
     <None Include="obj\Debug\LWFS.Main.csproj.GenerateResource.cache" />

@@ -58,11 +58,14 @@
     <Compile Include="Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
+    <Compile Include="obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="obj\Debug\LWFS.Main.Home.resources" />
+    <EmbeddedResource Include="obj\Debug\LWFS.Main.Properties.Resources.resources" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -72,6 +75,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="bin\Debug\LWFS.Main.exe.config" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Debug\LWFS.Main.csproj.CopyComplete" />
+    <None Include="obj\Debug\LWFS.Main.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug\LWFS.Main.csproj.GenerateResource.cache" />
+    <None Include="obj\Debug\LWFS.Main.csproj.SuggestedBindingRedirects.cache" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -87,7 +96,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="bin\Release\" />
     <Folder Include="Files\Errors\" />
+    <Folder Include="obj\Debug\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\log4net.dll" />
+    <Content Include="bin\Debug\log4net.xml" />
+    <Content Include="bin\Debug\LWFS.Main.exe" />
+    <Content Include="bin\Debug\LWFS.Main.pdb" />
+    <Content Include="obj\Debug\LWFS.Main.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\LWFS.Main.exe" />
+    <Content Include="obj\Debug\LWFS.Main.pdb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

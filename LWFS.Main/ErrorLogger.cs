@@ -17,6 +17,11 @@ namespace LWFS.Main
         #endregion
 
         #region Public Methods
+        /// <summary>
+        /// Add Error
+        /// </summary>
+        /// <param name="ex">Exception</param>
+        /// <returns>boolean</returns>
         public static bool AddError(Exception ex)
         {
             if (ex != null)

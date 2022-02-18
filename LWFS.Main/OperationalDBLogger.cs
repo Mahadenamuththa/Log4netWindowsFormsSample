@@ -9,7 +9,7 @@ namespace LWFS.Main
         #region Constructor
         static OperationalDBLogger()
         {
-            XmlConfigurator.Configure();
+            log4net.Config.XmlConfigurator.Configure();
         }
         #endregion
         #region Public Methods

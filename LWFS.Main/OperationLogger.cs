@@ -11,7 +11,7 @@ namespace LWFS.Main
         #region Constructor
         static OperationLogger()
         {
-            XmlConfigurator.Configure();
+            log4net.Config.XmlConfigurator.Configure();
         }
         #endregion
         #region Public Methods

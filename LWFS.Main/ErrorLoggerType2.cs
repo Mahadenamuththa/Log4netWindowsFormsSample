@@ -11,7 +11,7 @@ namespace LWFS.Main
         #region Constructor
         static ErrorLoggerType2()
         {
-            XmlConfigurator.Configure();
+            log4net.Config.XmlConfigurator.Configure();
         }
         #endregion
 

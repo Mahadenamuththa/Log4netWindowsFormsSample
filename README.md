@@ -139,3 +139,52 @@ and change inside as
         #endregion
     }
 ```
+08.  Lets create error and see ho it's works.Go to your Home form and add button as Add Error,Text box to check error as below
+ 
+![image](https://user-images.githubusercontent.com/21302583/154749618-06ee3b61-6503-4ea4-961c-b6b3ca963d3f.png)
+
+09. now double click on button and change code 
+```csharp
+using System;
+using System.Windows.Forms;
+
+namespace LWFS.Main
+{
+    public partial class Home : Form
+    {
+        public Home()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                throw new Exception(textBox1.Text);
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.AddError(ex);
+                throw;
+            }
+        }
+    }
+}
+```
+10.Now run your windows form application and enter some text on your text box
+
+![image](https://user-images.githubusercontent.com/21302583/154750641-eebd5492-4ba7-4ead-bf2c-113f8a13a783.png)
+
+11. Go to your `Log4netWindowsFormsSample\LWFS.Main\bin\Debug\Files\Errors` folder inside your project and open Errors.txt
+12.Now you your Error message logged there
+```text
+ERROR 2022-02-19 01:06:46,209    68ms ErrorLogger            
+Class name: Home
+Method name: button1_Click
+Line number: 17
+Exception message: Test 1
+   at LWFS.Main.Home.button1_Click(Object sender, EventArgs e) in D:\Projects\GitHub Projects\Log4netWindowsFormsSample\LWFS.Main\Home.cs:line 17
+```
+
+

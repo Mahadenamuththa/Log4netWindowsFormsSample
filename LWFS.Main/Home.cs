@@ -14,6 +14,7 @@ namespace LWFS.Main
         {
             try
             {
+                OperationLogger.LogMessage(textBox1.Text);
                 throw new Exception(textBox1.Text);
             }
             catch (Exception ex)

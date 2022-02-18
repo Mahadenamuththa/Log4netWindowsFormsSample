@@ -187,7 +187,7 @@ Exception message: Test 1
    at LWFS.Main.Home.button1_Click(Object sender, EventArgs e) in D:\Projects\GitHub Projects\Log4netWindowsFormsSample\LWFS.Main\Home.cs:line 17
 ```
 
-### Now see how to configure another way to configure log4net in separate config file.
+## Now see how to configure another way to configure log4net in separate config file.
 01. Add config file name as `log4net.config`in your project and paste this code.
 
 ```xml
@@ -294,6 +294,9 @@ private void button1_Click(object sender, EventArgs e)
 4. Now run your windows form application and enter some text on your text box
 
 05 Go to your `Log4netWindowsFormsSample\LWFS.Main\bin\Debug\Files\Errors` folder inside your project and open Errors.txt
+
+``Here Download Errors.txt`` [Errors.txt](https://github.com/Mahadenamuththa/IBMMQSample/files/8100726/Errors.txt)
+
 ```text
 ERROR 2022-02-19 03:22:56,420 51045ms ErrorLogger            
 Class name: Home
@@ -309,8 +312,65 @@ Line number: 17
 Exception message: Test2
    at LWFS.Main.Home.button1_Click(Object sender, EventArgs e) in D:\Projects\GitHub Projects\Log4netWindowsFormsSample\LWFS.Main\Home.cs:line 17
 ```
-## Like this you can add 
+### Like this you can add 
 * Debug
 * Info
 * Warn
 * Error
+
+## You Can Make Your Own Custom log4net Appenders
+
+01. Add new appender (`OperationLogAppender`) to your `log4net.config`.
+```xml
+<appender name="OperationLogAppender" type="log4net.Appender.RollingFileAppender">
+    <file value="Files/Operations/Logger.txt"/>
+    <appendToFile value="true" />
+    <rollingStyle value="Size" />
+    <maxSizeRollBackups value="5" />
+    <maximumFileSize value="10MB" />
+    <staticLogFileName value="true" />
+    <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%-5p %d %5rms %-22.25c{1} %m%n"/>
+    </layout>
+</appender>
+<logger name="OperationLogFileAppender">
+    <level value="Info"/>
+    <appender-ref ref="OperationLogAppender"/>
+</logger>
+```
+02.Now add new class named `OperationLogger.cs` and change code there as below
+```csharp
+    public class OperationLogger
+    {
+        private static readonly ILog logger = LogManager.GetLogger("OperationLogFileAppender");
+
+        #region Constructor
+        static OperationLogger()
+        {
+            XmlConfigurator.Configure();
+        }
+        #endregion
+        #region Public Methods
+        public static bool LogMessage(string message)
+        {
+            logger.Info(string.Concat(message));
+            return true;
+        }
+        public static bool LogWarning(string message)
+        {
+            logger.Warn(message);
+            return true;
+        }
+        public static bool LogError(string message)
+        {
+            logger.Error(message);
+            return true;
+        }
+        public static bool LogError(string message, Exception ex)
+        {
+            logger.Error(message + " Message Details: " + ex.Message + Environment.NewLine + ex.StackTrace);
+            return true;
+        }
+        #endregion
+    }
+```

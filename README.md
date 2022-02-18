@@ -187,7 +187,8 @@ Exception message: Test 1
    at LWFS.Main.Home.button1_Click(Object sender, EventArgs e) in D:\Projects\GitHub Projects\Log4netWindowsFormsSample\LWFS.Main\Home.cs:line 17
 ```
 
-13.Now see how to configure another way to configure log4net in separate config file.Add config file name as `log4net.config`in your project and paste this code.
+### Now see how to configure another way to configure log4net in separate config file.
+01. Add config file name as `log4net.config`in your project and paste this code.
 
 ```xml
 <log4net>
@@ -215,7 +216,7 @@ Exception message: Test 1
 </log4net>
 ```
 
-14. Add new class ErrorLoggerType2.cs and change code same as previous errorlog but here we change one thing
+02. Add new class ErrorLoggerType2.cs and change code same as previous errorlog but here we change one thing
 ```csharp
 private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 ```
@@ -275,7 +276,7 @@ public class ErrorLoggerType2
         #endregion
     }
 ```
-15. Now go to your `Home.cs` and change code as below
+03. Now go to your `Home.cs` and change code as below
 ```csharp
 private void button1_Click(object sender, EventArgs e)
 {
@@ -290,9 +291,9 @@ private void button1_Click(object sender, EventArgs e)
     }
 }
 ```
-16.Now run your windows form application and enter some text on your text box
+4. Now run your windows form application and enter some text on your text box
 
-17. Go to your `Log4netWindowsFormsSample\LWFS.Main\bin\Debug\Files\Errors` folder inside your project and open Errors.txt
+05 Go to your `Log4netWindowsFormsSample\LWFS.Main\bin\Debug\Files\Errors` folder inside your project and open Errors.txt
 ```text
 ERROR 2022-02-19 03:22:56,420 51045ms ErrorLogger            
 Class name: Home
@@ -308,7 +309,7 @@ Line number: 17
 Exception message: Test2
    at LWFS.Main.Home.button1_Click(Object sender, EventArgs e) in D:\Projects\GitHub Projects\Log4netWindowsFormsSample\LWFS.Main\Home.cs:line 17
 ```
-Like this you can add 
+## Like this you can add 
 * Debug
 * Info
 * Warn

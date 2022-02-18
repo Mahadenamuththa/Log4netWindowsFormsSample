@@ -395,3 +395,29 @@ private void button1_Click(object sender, EventArgs e)
 
 04. Now run your windows form application and enter some text on your text box
 05. Now you seen in your folder `Files\Operations` and file created there as Logger [Logger.txt](https://github.com/Mahadenamuththa/Log4netWindowsFormsSample/files/8100946/Logger.txt)
+
+## Now we are going to Log in Database
+01. Frist create a new database `log4netDatabase` for this.
+![image](https://user-images.githubusercontent.com/21302583/154773315-c215a8a1-25a2-4169-ab98-1d564c6973dc.png)
+
+02. Create table OperationalLog and create fields as below
+![image](https://user-images.githubusercontent.com/21302583/154773678-b642a1f0-dfed-4ae6-9af7-83ac17741665.png)
+```sql
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[OperationalLog](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Message] [nvarchar](max) NULL,
+	[DateLogged] [datetime] NULL,
+ CONSTRAINT [PK_OperationalLog] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+```
+

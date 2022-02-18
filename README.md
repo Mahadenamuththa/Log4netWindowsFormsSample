@@ -275,3 +275,41 @@ public class ErrorLoggerType2
         #endregion
     }
 ```
+15. Now go to your `Home.cs` and change code as below
+```csharp
+private void button1_Click(object sender, EventArgs e)
+{
+    try
+    {
+        throw new Exception(textBox1.Text);
+    }
+    catch (Exception ex)
+    {
+        ErrorLogger.AddError(ex);
+        ErrorLoggerType2.AddError(ex);
+    }
+}
+```
+16.Now run your windows form application and enter some text on your text box
+
+17. Go to your `Log4netWindowsFormsSample\LWFS.Main\bin\Debug\Files\Errors` folder inside your project and open Errors.txt
+```text
+ERROR 2022-02-19 03:22:56,420 51045ms ErrorLogger            
+Class name: Home
+Method name: button1_Click
+Line number: 17
+Exception message: Test2
+   at LWFS.Main.Home.button1_Click(Object sender, EventArgs e) in D:\Projects\GitHub Projects\Log4netWindowsFormsSample\LWFS.Main\Home.cs:line 17
+
+INFO  2022-02-19 03:22:56,420 51045ms ErrorLoggerType2       
+Class name: Home
+Method name: button1_Click
+Line number: 17
+Exception message: Test2
+   at LWFS.Main.Home.button1_Click(Object sender, EventArgs e) in D:\Projects\GitHub Projects\Log4netWindowsFormsSample\LWFS.Main\Home.cs:line 17
+```
+Like this you can add 
+* Debug
+* Info
+* Warn
+* Error

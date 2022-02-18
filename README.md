@@ -291,7 +291,7 @@ private void button1_Click(object sender, EventArgs e)
     }
 }
 ```
-4. Now run your windows form application and enter some text on your text box
+04. Now run your windows form application and enter some text on your text box
 
 05 Go to your `Log4netWindowsFormsSample\LWFS.Main\bin\Debug\Files\Errors` folder inside your project and open Errors.txt
 
@@ -338,7 +338,7 @@ Exception message: Test2
     <appender-ref ref="OperationLogAppender"/>
 </logger>
 ```
-02.Now add new class named `OperationLogger.cs` and change code there as below
+02. Now add new class named `OperationLogger.cs` and change code there as below
 ```csharp
     public class OperationLogger
     {
@@ -374,3 +374,24 @@ Exception message: Test2
         #endregion
     }
 ```
+
+03. Now go to your `Home.cs` and change code as below
+
+```csharp
+private void button1_Click(object sender, EventArgs e)
+{
+    try
+    {
+        OperationLogger.LogMessage(textBox1.Text);
+        throw new Exception(textBox1.Text);
+    }
+    catch (Exception ex)
+    {
+        ErrorLogger.AddError(ex);
+        ErrorLoggerType2.AddError(ex);
+    }
+}
+```
+
+04. Now run your windows form application and enter some text on your text box
+05. Now you seen in your folder `Files\Operations` and file created there as Logger [Logger.txt](https://github.com/Mahadenamuththa/Log4netWindowsFormsSample/files/8100946/Logger.txt)

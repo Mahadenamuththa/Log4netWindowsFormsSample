@@ -395,3 +395,83 @@ private void button1_Click(object sender, EventArgs e)
 
 04. Now run your windows form application and enter some text on your text box
 05. Now you seen in your folder `Files\Operations` and file created there as Logger [Logger.txt](https://github.com/Mahadenamuththa/Log4netWindowsFormsSample/files/8100946/Logger.txt)
+
+## Now we are going to Log in Database
+01. Frist create a new database `log4netDatabase` for this.
+![image](https://user-images.githubusercontent.com/21302583/154773315-c215a8a1-25a2-4169-ab98-1d564c6973dc.png)
+
+02. Create table OperationalLog and create fields as below
+![image](https://user-images.githubusercontent.com/21302583/154773678-b642a1f0-dfed-4ae6-9af7-83ac17741665.png)
+```sql
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[OperationalLog](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Message] [nvarchar](max) NULL,
+	[DateLogged] [datetime] NULL,
+ CONSTRAINT [PK_OperationalLog] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+```
+03. now go to your log4net.config add this 
+```xml
+<!--Database Listener-->
+<appender name="AdoNetAppender" type="log4net.Appender.AdoNetAppender">
+    <bufferSize value="1"/>
+    <connectionType value="System.Data.SqlClient.SqlConnection, System.Data, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"/>
+    <connectionStringName value="DefaultConnection"/>
+    <commandText value="INSERT INTO dbo.OperationalLog ([Message],[DateLogged]) VALUES (@message,@dateLogged)"/>
+    <parameter>
+        <parameterName value="@message"/>
+        <dbType value="String"/>
+        <size value="4000"/>
+        <layout type="log4net.Layout.PatternLayout">
+            <conversionPattern value="%message"/>
+        </layout>
+    </parameter>
+    <parameter>
+        <parameterName value="@dateLogged"/>
+        <dbType value="DateTime"/>
+        <layout type="log4net.Layout.RawTimeStampLayout"/>
+    </parameter>
+</appender>
+<logger name="OperationalDBLogAppender">
+    <level value="Info"/>
+    <appender-ref ref="AdoNetAppender"/>
+</logger>
+```
+
+04. Add connection string to your App.config
+```xml
+<connectionStrings>
+    <add name="DefaultConnection" connectionString="Data Source=YourServerName;Initial Catalog=log4netDatabase;User ID=sa;Password=123;Connection Timeout=60;multipleactiveresultsets=True;" providerName="System.Data.SqlClient"/>
+</connectionStrings>
+```
+
+05. Create new class file `OperationalDBLogger.cs` and change code as below
+```csharp
+public class OperationalDBLogger
+{
+   private static readonly ILog logger = log4net.LogManager.GetLogger("OperationalDBLogAppender");
+    #region Constructor
+    static OperationalDBLogger()
+    {
+        XmlConfigurator.Configure();
+    }
+    #endregion
+    #region Public Methods
+    public static bool AddError(string message)
+    {
+        logger.Error(message);
+        return true;
+    }
+    #endregion
+}
+```

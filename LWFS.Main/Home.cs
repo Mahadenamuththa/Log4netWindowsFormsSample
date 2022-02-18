@@ -18,7 +18,8 @@ namespace LWFS.Main
             }
             catch (Exception ex)
             {
-                ErrorLogger.AddError(ex); 
+                ErrorLogger.AddError(ex);
+                ErrorLoggerType2.AddError(ex);
             }
         }
     }
